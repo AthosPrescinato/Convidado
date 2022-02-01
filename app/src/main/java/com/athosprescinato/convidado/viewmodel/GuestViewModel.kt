@@ -11,7 +11,7 @@ import com.athosprescinato.convidado.service.repository.GuestRepository
 
 class GuestViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val mGuestRepository = GuestRepository.getInstance(application)
+    private val mGuestRepository = GuestRepository(application)
 
     private val mGuestList = MutableLiveData<List<GuestModel>>()
     val guestList: LiveData<List<GuestModel>> = mGuestList
@@ -33,6 +33,7 @@ class GuestViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun delete(id: Int){
-        mGuestRepository.delete(id)
+        val guest = mGuestRepository.get(id)
+        mGuestRepository.delete(guest)
     }
 }
